@@ -11,10 +11,8 @@ function checkAuthenticationCookie(cookieName){
         if(cookie){
             const user=await getUser(cookie);
             const currentUserDetail=await  User.findById(user.id).select("-password").select("-salt");
-           // req.user=currentUserDetail
-            res.json({
-            "user":currentUserDetail
-            }) 
+            req.user=currentUserDetail
+         
             console.log()
             return next()
         }

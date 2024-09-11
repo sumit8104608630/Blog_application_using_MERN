@@ -20,10 +20,17 @@ const port=9000;
 // all requirement or you can say uses 
 app.use(express.json());
 //check authentication 
-app.use("/user/author",checkAuthenticationCookie("token"));
-// all router which will use 
+app.use(checkAuthenticationCookie("token"));
+// all router which will use app.use("/user",userRoute);
 app.use("/user",userRoute);
 
+
+app.get("/user/author",(req,res)=>{
+  console.log(req.user.email)
+  res.json({
+    "user":req.user
+    })
+}) 
  
 connect("mongodb://localhost:27017/blog_react").then(()=>{
     console.log("Connected to MongoDB")

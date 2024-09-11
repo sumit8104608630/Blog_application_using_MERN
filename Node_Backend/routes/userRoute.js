@@ -8,4 +8,3 @@ userRoute.post("/register",registerUser)
 userRoute.post("/login",login);
 
 module.exports=userRoute ;
-
