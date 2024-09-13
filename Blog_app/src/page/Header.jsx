@@ -11,11 +11,15 @@ function Header() {
    const dispatch=useDispatch()
    const {isLogIn, userInfo, isLoading }=useSelector((state)=>state.authenticate);
    console.log(userInfo)
-   useEffect( ()=>{  
+   useEffect( ()=>{
     dispatch(fetchUser())
-  }, [])
+    return () => {
+      // Cleanup code (optional)
+      console.log("Cleanup function called");
+    };
+  }, [isLogIn])
   return (
-    <div className='w-full  md:flex md:justify-between  sticky top-0 bg-gray-500 shadow-lg shadow-gray-200/50 bg-white px-5 py-5 items-center'>
+    <div className='w-full z-1  md:flex md:justify-between  sticky top-0 bg-gray-500 shadow-lg shadow-gray-200/50 bg-white px-5 py-5 items-center'>
             <div className='flex justify-between'>
                 <li className='list-none'>
                     <Link className='hover:text-orange-500' to="/"><img className='w-8' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8m_ChqQRj5dtA8S5qrHve4ZnwCKo5aoEUlg&s'></img></Link>
@@ -59,6 +63,9 @@ function Header() {
 
             <nav className='flex  items-center'> 
             <ul className={` ${menu?"hidden":"block"} md:hidden flex flex-col   gap-5 text-xl font-semibold text-gray-700  px-5 py-2 items-center`}>
+                
+                       {
+                        userInfo?<>
                 <li>
                      <NavLink  className={({isActive})=>`${isActive?"text-orange-500":"text-700"} hover:text-orange-500`} to="/">Home</NavLink>
                 </li>
@@ -73,7 +80,8 @@ function Header() {
                 </li>
                 <li>
                     <NavLink  className={({isActive})=>`${isActive?"text-orange-500":"text-700"} hover:text-orange-500`} to="/logout" >LogOut</NavLink>
-                </li>
+                </li></>:null
+}
             </ul>
             </nav>
             </div>

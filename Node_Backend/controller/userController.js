@@ -32,7 +32,34 @@ async function login(req, res) {
     }
 }
 
+async function uploadPhoto(req, res){
+let {userName}=req.body;
+if(userName==""){
+    userName=req.user.userName
+}
+const email=req.user.email;
+try{
+ await User.updateOne({
+    email:email
+ },
+{$set:{userName:userName,profileImage:`${req.file.filename}`}}).then((result)=>{
+    res.status(200).json({message:"profile updated successfully",result:result})
+}).catch((err)=>{
+    res.status(400).json({message:err.message})
+})
+}catch(err){
+    res.status(400).json({message:err.message});
+}
+}
+
+async function logOut(req,res){
+   res.clearCookie('token')
+   res.send("token");
+}
+
 module.exports={
     registerUser,
-    login
+    login,
+    uploadPhoto,
+    logOut
 }

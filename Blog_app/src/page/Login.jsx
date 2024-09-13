@@ -19,7 +19,7 @@ function Login() {
     email: "",
     password: "",
   });
-
+console.log(userInfo)
   const handleInput = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -38,9 +38,10 @@ function Login() {
       });
 
       const datas = await respond.json();
+      console.log(datas)
       setData(datas)
 
-  
+      dispatch()
     } catch (error) {
       console.log("Error during login:", error);
     }
@@ -56,6 +57,10 @@ if(userInfo){
 useEffect( ()=>{
   console.log(data)
   dispatch(fetchUser())
+  return () => {
+    // Cleanup code (optional)
+    console.log("Cleanup function called");
+  };
 }, [data])
 
   // Log the current userInfo after dispatch
