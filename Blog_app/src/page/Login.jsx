@@ -41,7 +41,7 @@ console.log(userInfo)
       console.log(datas)
       setData(datas)
 
-      dispatch()
+      
     } catch (error) {
       console.log("Error during login:", error);
     }

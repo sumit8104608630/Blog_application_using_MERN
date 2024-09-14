@@ -25,10 +25,9 @@ app.use(checkAuthenticationCookie("token"));
 app.use("/user",userRoute);
 
 
-app.get("/user/author",(req,res)=>{
-  console.log(req.user.email)
+app.get("/user/author",(req,res)=>{ 
   res.json({
-    "user":req.user
+    "user":req.user 
     })
 }) 
  

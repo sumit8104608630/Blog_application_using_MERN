@@ -7,6 +7,7 @@ function Rejister() {
 const [toggle,setToggle]=useState(false);
 const [toggle2,setToggle2]=useState(false);
 const navigate=useNavigate()
+const [confirmPasswordInput,setConfirmPassword]=useState("")
 const [formData,setFormData]=useState({
   userName:"",
   email:"",
@@ -15,6 +16,14 @@ const [formData,setFormData]=useState({
 
 const handelSubmit=async (e)=>{
   e.preventDefault()
+  if(formData.password!=confirmPasswordInput){
+    alert("password not match")
+    return
+  }
+  if(formData.password.length<8 && confirmPasswordInput.length<8){
+    alert("password must be 8 character")
+    return
+  }
   try{
     const response=await fetch('http://localhost:9000/user/register',{
       method:'POST',
@@ -37,6 +46,11 @@ const handelInput=(e)=>{
   setFormData({...formData,[name]:value})
 }
 
+const confirmPassword=(e)=>{
+  setConfirmPassword(e.target.value)
+}
+
+
 console.log(formData)
   return (
     <div className='w-2/3 md:w-1/3 shadow-gray-300 bg-gray-50 shadow-lg p-5 rounded-lg absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2 ' >
@@ -52,14 +66,14 @@ console.log(formData)
         <div className='flex gap-1 flex-col mt-3 '>
           <label>PassWord : </label>
           <div className='border-2 bg-white flex px-5 py-1 w-full rounded-lg border-gray-300'>
-          <input value={formData.password} onChange={handelInput} className='  focus:outline-none rounded-lg w-full'   type={toggle ? "text" : "password"} name="password" required/>
+          <input min={8} value={formData.password} onChange={handelInput} className='  focus:outline-none rounded-lg w-full'   type={toggle ? "text" : "password"} name="password" required/>
           <button type='button' className='text-xl text-center ' onClick={()=>setToggle(prev=>!prev)}>{toggle?<IoEye />:<IoMdEyeOff />}</button>
           </div>
         </div>
         <div className='flex gap-1 flex-col mt-3 '>
         <label>Confirm PassWord : </label>
         <div className='border-2 bg-white flex px-5 py-1 w-full rounded-lg border-gray-300'>
-          <input className='  focus:outline-none rounded-lg w-full'   type={toggle2 ? "text" : "password"} name="confirmPassword" required/>
+          <input min={8} onChange={confirmPassword} className='  focus:outline-none rounded-lg w-full'   type={toggle2 ? "text" : "password"} name="confirmPassword" value={confirmPasswordInput} required/>
           <button type='button' className='text-xl text-center ' onClick={()=>setToggle2(prev=>!prev)}>{toggle2?<IoEye />:<IoMdEyeOff />}</button>
           </div>
         </div>

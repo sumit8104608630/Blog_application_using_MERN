@@ -6,11 +6,11 @@ import { FaBars } from "react-icons/fa";
 import { Link, NavLink } from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux';
 import { fetchUser } from '../app/actionFetch';
+import { logout } from '../app/blog_app_redux';
 function Header() {
    const [menu,setMenu]=useState(false);
    const dispatch=useDispatch()
    const {isLogIn, userInfo, isLoading }=useSelector((state)=>state.authenticate);
-   console.log(userInfo)
    useEffect( ()=>{
     dispatch(fetchUser())
     return () => {
@@ -18,7 +18,12 @@ function Header() {
       console.log("Cleanup function called");
     };
   }, [isLogIn])
+  console.log(isLogIn) 
   return (
+    <>
+    {
+        isLoading ?
+        <div><img className='w-1/2 md:1/2' src="https://i.gifer.com/ZNeT.gif" alt='GIF' /></div>:
     <div className='w-full z-1  md:flex md:justify-between  sticky top-0 bg-gray-500 shadow-lg shadow-gray-200/50 bg-white px-5 py-5 items-center'>
             <div className='flex justify-between'>
                 <li className='list-none'>
@@ -80,13 +85,23 @@ function Header() {
                 </li>
                 <li>
                     <NavLink  className={({isActive})=>`${isActive?"text-orange-500":"text-700"} hover:text-orange-500`} to="/logout" >LogOut</NavLink>
-                </li></>:null
+                </li></>:<>
+                 <li>
+                <NavLink  className={({isActive})=>`${isActive?"text-orange-500":"text-700"} hover:text-orange-500`} to="/register">Sign Up</NavLink>
+                </li>
+                <li>
+                    <NavLink  className={({isActive})=>`${isActive?"text-orange-500":"text-700"} hover:text-orange-500`} to="/login" >Login</NavLink>
+                 </li>
+                 </>
 }
             </ul>
             </nav>
             </div>
         </nav>
     </div>
+    
+}
+</>
   )
 }
 

@@ -22,8 +22,8 @@ function LogOut() {
     dispatch(fetchUser());
   }, [update, dispatch]);
 
-  console.log(isLoading);
-  console.log(userInfo);
+  //console.log(isLoading);
+ // console.log(userInfo);
 
   const [formData, setFormData] = useState({
     userName: "",
@@ -49,25 +49,26 @@ function LogOut() {
     })
    navigate("/login")
   };
-  if(!userInfo){
+  if(!userInfo&&!isLogIn){
     navigate('/')
   }
-
+console.log(isLogIn)
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
     data.append('userName', formData.userName);
     data.append('profilePhoto', formData.profilePhoto);
+//    dispatch(logout())
 
     try {
+
       await axios.post('http://localhost:9000/user/upload', data, {
         headers: {
           "Content-Type": 'multipart/form-data'
         },
         withCredentials: true
-      });
+      }).then(dispatch(logout()))
       setUpdate({ ...update, status: "successful" });
-      dispatch(logout)
     } catch (err) {
       console.log(err);
     }
