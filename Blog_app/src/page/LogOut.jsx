@@ -46,6 +46,7 @@ function LogOut() {
   const handleLogOut = () => {
     axios.get('http://localhost:9000/user/logout',{withCredentials:true}).then((data)=>{
       Cookies.remove('token')
+      dispatch(logout())
     })
    navigate("/login")
   };
@@ -67,13 +68,14 @@ console.log(isLogIn)
           "Content-Type": 'multipart/form-data'
         },
         withCredentials: true
-      }).then(dispatch(logout()))
+      })
       setUpdate({ ...update, status: "successful" });
     } catch (err) {
       console.log(err);
     }
   };
 
+  
   return (
     <div className='my-20'>
       {isLoading ?
