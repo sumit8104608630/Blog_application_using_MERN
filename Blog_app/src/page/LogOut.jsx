@@ -75,11 +75,11 @@ console.log(isLogIn)
     }
   };
 
-  
+
   return (
     <div className='my-20'>
       {isLoading ?
-        <div><img className='w-1/2 md:1/2' src="https://i.gifer.com/ZNeT.gif" alt='GIF' /></div> :
+      <div className='absolute left-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2'><img className='w-10 md:1/2' src="https://i.gifer.com/ZNeT.gif" alt='GIF' /></div>: 
         <div className='flex flex-col shadow-gray-300 bg-gray-50 shadow-lg p-5 rounded-lg'>
           <div className='flex mb-5 justify-center items-center flex-col'>
             <img className='w-1/2 md:w-36 rounded-full' src={`http://localhost:9000/user/upload/${userInfo.profileImage}`} alt='' />

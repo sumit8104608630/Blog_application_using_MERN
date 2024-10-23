@@ -21,10 +21,7 @@ function Header() {
   console.log(isLogIn) 
   return (
     <>
-    {
-        isLoading ?
-        <div><img className='w-1/2 md:1/2' src="https://i.gifer.com/ZNeT.gif" alt='GIF' /></div>:
-    <div className='w-full z-1  md:flex md:justify-between  sticky top-0 bg-gray-500 shadow-lg shadow-gray-200/50 bg-white px-5 py-5 items-center'>
+    <div className='w-full z-1  md:flex md:justify-between  fixed top-0 bg-gray-500 shadow-lg shadow-gray-200/50 bg-white px-5 py-5 items-center'>
             <div className='flex justify-between'>
                 <li className='list-none'>
                     <Link className='hover:text-orange-500' to="/"><img className='w-8' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8m_ChqQRj5dtA8S5qrHve4ZnwCKo5aoEUlg&s'></img></Link>
@@ -100,7 +97,7 @@ function Header() {
         </nav>
     </div>
     
-}
+
 </>
   )
 }

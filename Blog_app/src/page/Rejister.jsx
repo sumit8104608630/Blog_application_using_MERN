@@ -54,6 +54,7 @@ const confirmPassword=(e)=>{
 console.log(formData)
   return (
     <div className='w-2/3 md:w-1/3 shadow-gray-300 bg-gray-50 shadow-lg p-5 rounded-lg absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2 ' >
+      <div className='flex justify-center text-gray-700 text-2xl font-semibold'><span>Register</span></div>
       <form onSubmit={handelSubmit}>
         <div className='flex gap-1 flex-col mt-3'>
           <label>Username : </label>

@@ -1,7 +1,12 @@
 const mongoose=require("mongoose");
 const {setUser}=require("../service/auth")
-
 const {createHmac,randomBytes} = require('node:crypto');
+
+
+
+// creating schema for user database handling 
+
+
 const userSchema=mongoose.Schema({
     userName:{
         type:String,
@@ -10,6 +15,7 @@ const userSchema=mongoose.Schema({
     email:{
         type:String,
         required:true,
+        lowercase:true,
         unique:true
     },
     salt:{
