@@ -77,7 +77,7 @@ console.log(isLogIn)
 
 
   return (
-    <div className='my-20'>
+    <div className='my-20 mt-28'>
       {isLoading ?
       <div className='absolute left-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2'><img className='w-10 md:1/2' src="https://i.gifer.com/ZNeT.gif" alt='GIF' /></div>: 
         <div className='flex flex-col shadow-gray-300 bg-gray-50 shadow-lg p-5 rounded-lg'>
@@ -101,7 +101,7 @@ console.log(isLogIn)
                 <label>Edit Name:</label>
                 <input value={formData.userName} onChange={handleInput} className='border-2 focus:outline-none rounded-lg border-gray-300 px-5 py-1' type="text" placeholder='Full Name' name="userName" />
               </div>
-              <div className='mt-5'>
+              <div className='mt-5 '>
                 <input className='px-5 py-2 bg-orange-500 text-white font-semibold rounded-lg w-full' value={"Edit"} type='submit' />
               </div>
             </form>
