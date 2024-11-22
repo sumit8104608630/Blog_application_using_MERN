@@ -5,3 +5,18 @@
 input[type="password"] {
     -webkit-text-security: disc;
 }
+
+/* In your CSS file */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px; /* Adjust as needed */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Thumb color */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent; /* Makes the track invisible */
+}

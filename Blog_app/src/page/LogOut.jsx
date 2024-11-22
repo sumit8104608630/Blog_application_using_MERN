@@ -75,23 +75,21 @@ console.log(isLogIn)
     }
   };
 
-
   return (
-    <div className='my-20 mt-28'>
-      {isLoading ?
-      <div className='absolute left-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2'><img className='w-10 md:1/2' src="https://i.gifer.com/ZNeT.gif" alt='GIF' /></div>: 
-        <div className='flex flex-col shadow-gray-300 bg-gray-50 shadow-lg p-5 rounded-lg'>
-          <div className='flex mb-5 justify-center items-center flex-col'>
-            <img className='w-1/2 md:w-36 rounded-full' src={`http://localhost:9000/user/upload/${userInfo.profileImage}`} alt='' />
+    <div className='my-20 mt-28 flex flex-col  w-full'>
+      {isLoading ? (
+        <div className='absolute left-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2'>
+          <img className='w-10 md:w-1/2' src="https://i.gifer.com/ZNeT.gif" alt='Loading' />
+        </div>
+      ) : (
+        <>
+         <div className=' flex flex-col items-center justify-center'>
+            <img className='w-20 rounded-full mb-2' src={`http://localhost:9000/user/upload/${userInfo.profileImage}`} alt='User' />
             <div className='flex gap-4 mt-2'>
-              <h1>{userInfo.userName}</h1>
+              <span className='font-semibold'>{userInfo.userName}</span>
               <button onClick={() => setToggle(prev => !prev)}><MdEditSquare /></button>
             </div>
-            <div>
-              <button onClick={handleLogOut} className='px-5 py-1 mt-2 bg-orange-500 text-white font-semibold rounded-lg w-full'>LogOut</button>
-            </div>
-          </div>
-          <div>
+            <div className=' absolute  bg-white shadow-2xl rounded p-5  bottom-1/2  translate-y-3/4 z-10'>
             <form onSubmit={handleSubmit} encType="multipart/form-data" className={toggle ? "block" : "hidden"}>
               <div className='border-2 flex focus:outline-none rounded-lg border-gray-300 px-2 py-1'>
                 <input onChange={handleFileChange} className='w-full' name='profilePhoto' type='file' />
@@ -106,8 +104,32 @@ console.log(isLogIn)
               </div>
             </form>
           </div>
+          </div>
+        <div className='  w-full px-5 mt-4'>
+        <div className="w-full">
+            <hr className='bg-gray-400 h-0.5 w-full' />
+          </div>
+        
         </div>
-      }
+        <div className=''>
+          <div className=' border-r-2 border-gray-400   fixed h-full py-5 px-6'>
+          <nav  className=' w-max'>
+          <ul className='flex flex-col gap-5 w-full px-5 py-1 custom-scrollbar lg:justify-center justify-start overflow-x-auto'>
+          <li><button className='"text-gray-700 bg-white  px-5 py-1 '>Favorite</button></li>
+          <li><button className='"text-gray-700 bg-white  px-5 py-1 '>History</button></li>
+          <li>
+          <div>
+              <button onClick={handleLogOut} className='px-5 py-1 mt-2 bg-orange-500 text-white font-semibold rounded-lg w-full'>LogOut</button>
+          </div>
+          </li>
+        </ul>
+          </nav>
+          </div>
+          </div>
+      
+
+          </>
+      )}
     </div>
   );
 }

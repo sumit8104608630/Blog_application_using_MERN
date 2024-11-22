@@ -14,7 +14,7 @@ function LayOut() {
       
     <div>
         <Header />
-       <div className='flex justify-center items-center z-1 ' > < Outlet /></div>
+       <div className='flex justify-center items-center  ' > < Outlet /></div>
         <Footer />
     </div>
     </>

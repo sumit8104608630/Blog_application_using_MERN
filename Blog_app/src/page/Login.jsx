@@ -67,7 +67,7 @@ useEffect( ()=>{
   console.log("User Info from Redux:", userInfo);
 
   return (
-    <div className=' w-max md:w-1/2 shadow-gray-300 bg-gray-50 shadow-lg p-5 rounded-lg absolute bottom-1/2 right-1/2 translate-x-1/2 mt-28 translate-y-1/2'>
+    <div className=' w-max md:w-1/2 shadow-gray-300 bg-gray-50 shadow-lg p-5 rounded-lg  mt-36 '>
       <div className='flex gap-8'>
         <div className='hidden md:block'>
           <img  src={MyImage} alt='background image' />
