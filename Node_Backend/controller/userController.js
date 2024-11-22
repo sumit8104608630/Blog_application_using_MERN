@@ -1,4 +1,7 @@
 const User=require("../model/userModel")
+const uploadFile=require("../utility/cloudinary.js")
+
+
 
 async function registerUser(req,res){
     const {userName,email,password}=req.body;
@@ -36,13 +39,14 @@ async function uploadPhoto(req, res){
 let {userName}=req.body;
 if(userName==""){
     userName=req.user.userName
-}
+} 
 const email=req.user.email;
 try{
+const upload=await uploadFile(req.file.filename)
  await User.updateOne({
     email:email
  },
-{$set:{userName:userName,profileImage:`${req.file.filename}`}}).then((result)=>{
+{$set:{userName:userName,profileImage:`${upload.url}`}}).then((result)=>{
     res.status(200).json({message:"profile updated successfully",result:result})
 }).catch((err)=>{
     res.status(400).json({message:err.message})

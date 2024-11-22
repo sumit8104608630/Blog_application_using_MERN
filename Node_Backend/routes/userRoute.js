@@ -4,27 +4,18 @@ const User=require("../model/userModel");
 const {registerUser,login,uploadPhoto,logOut}=require("../controller/userController")
 const path=require("path");
 const multer =require ("multer");
+const upload =require("../middleWare/multer.middleware")
 
 
-const storage=multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,path.resolve("./public/upload"))
-    },
-    filename:function(req,file,cb){
-        const filename=`${Date.now()}-${file.originalname}`
-        cb(null,filename)
-    }
-
-})
 
 userRoute.use(express.static(path.resolve('./public')))
-const upload=multer({storage:storage});
+ upload
 
 
 
 userRoute.post("/register",registerUser)
 userRoute.post("/login",login);
-userRoute.post("/upload",upload.single("profilePhoto"),uploadPhoto)
+userRoute.post("/upload",upload.single("profilePhoto"),uploadPhoto)// middleware is just use before the url 
 userRoute.get("/logout",logOut);
 
 module.exports=userRoute ;

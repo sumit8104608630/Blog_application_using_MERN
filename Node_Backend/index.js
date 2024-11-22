@@ -3,6 +3,7 @@ const mongoose=require("mongoose")
 const {connect}=require("./connect")
 const User=require("./model/userModel")
 const app=express();
+require('dotenv').config();
 const userRoute=require("./routes/userRoute")
 const cookieParser=require("cookie-parser")
 const cors=require("cors")
@@ -16,7 +17,7 @@ app.use(cors({
 app.use(cookieParser());
  
 // port of server 
-const port=9000;  
+const port=process.env.PORT_NO||800;  
 // all requirement or you can say uses 
 app.use(express.json());
 //check authentication 
@@ -31,7 +32,7 @@ app.get("/user/author",(req,res)=>{
     })
 }) 
  
-connect("mongodb://localhost:27017/blog_react").then(()=>{
+connect(process.env.MONGO_DB_URL).then(()=>{
     console.log("Connected to MongoDB")
 }).catch((err)=>{  
     console.log("Error connecting to MongoDB",err)
