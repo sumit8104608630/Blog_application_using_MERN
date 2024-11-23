@@ -7,6 +7,7 @@ const dotenv=require('dotenv');
 const userRoute=require("./routes/userRoute")
 const cookieParser=require("cookie-parser")
 const cors=require("cors")
+const blogRoute=require("./routes/blogRoute.js")
 dotenv.config({
   path:'./.env'
 })
@@ -28,6 +29,9 @@ app.use(express.json());
 app.use(checkAuthenticationCookie("token"));
 // all router which will use app.use("/user",userRoute);
 app.use("/user",userRoute);
+// all rout which will be interacting with the blog schema model will be start from below url
+app.use("/blog",blogRoute);
+ 
 
 
 app.get("/user/author",(req,res)=>{ 

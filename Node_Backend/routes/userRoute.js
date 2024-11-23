@@ -1,6 +1,6 @@
 const express=require("express");
 const userRoute=express.Router();
-const User=require("../model/userModel");
+//const User=require("../model/userModel");
 const {registerUser,login,uploadPhoto,logOut}=require("../controller/userController")
 const path=require("path");
 const multer =require ("multer");

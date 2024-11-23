@@ -51,14 +51,17 @@ try{
         return res.status(400).json({ message: "No file uploaded" });
     }
    // console.log(`../public/upload/${req.file.filename}`)
-const upload=await uploadFile(`../public/upload/${req.file.filename}`)
-console.log(upload)
+
+   
+const local_path=path.join(__dirname,`../public/upload/${req.file.filename}`)
+const upload=await uploadFile(local_path);
+console.log(upload.secure_url)
  await User.updateOne({
     email:email
- }, 
+ },   
 {$set:{
         userName:userName,
-        profileImage:`${upload.URL}` 
+        profileImage:`${upload.secure_url}` 
       }
 }).then((result)=>{
     res.status(200).json({message:"profile updated successfully",result:result})

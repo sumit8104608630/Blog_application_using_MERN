@@ -84,7 +84,7 @@ console.log(isLogIn)
       ) : (
         <>
          <div className=' flex flex-col items-center justify-center'>
-            <img className='w-20 rounded-full mb-2' src={`http://localhost:9000/user/upload/${userInfo.profileImage}`} alt='User' />
+            <img className='w-20 h-20 rounded-full mb-2' src={userInfo.profileImage} alt='User' />
             <div className='flex gap-4 mt-2'>
               <span className='font-semibold'>{userInfo.userName}</span>
               <button onClick={() => setToggle(prev => !prev)}><MdEditSquare /></button>
