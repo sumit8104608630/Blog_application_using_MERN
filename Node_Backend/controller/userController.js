@@ -1,5 +1,6 @@
 const User=require("../model/userModel")
-const uploadFile=require("../utility/cloudinary.js")
+const {uploadFile}=require("../utility/cloudinary.js")
+const path=require("path");
 
 
 
@@ -36,21 +37,34 @@ async function login(req, res) {
 }
 
 async function uploadPhoto(req, res){
+   // console.log(req.file.filename)
 let {userName}=req.body;
+//console.log(req.body.userName,req.file.filename)
+
 if(userName==""){
     userName=req.user.userName
 } 
 const email=req.user.email;
 try{
-const upload=await uploadFile(req.file.filename)
+    console.log(req.file)
+    if (!req.file) {
+        return res.status(400).json({ message: "No file uploaded" });
+    }
+   // console.log(`../public/upload/${req.file.filename}`)
+const upload=await uploadFile(`../public/upload/${req.file.filename}`)
+console.log(upload)
  await User.updateOne({
     email:email
- },
-{$set:{userName:userName,profileImage:`${upload.url}`}}).then((result)=>{
+ }, 
+{$set:{
+        userName:userName,
+        profileImage:`${upload.URL}` 
+      }
+}).then((result)=>{
     res.status(200).json({message:"profile updated successfully",result:result})
 }).catch((err)=>{
     res.status(400).json({message:err.message})
-})
+}) 
 }catch(err){
     res.status(400).json({message:err.message});
 }

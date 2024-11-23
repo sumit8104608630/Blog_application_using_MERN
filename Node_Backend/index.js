@@ -3,11 +3,15 @@ const mongoose=require("mongoose")
 const {connect}=require("./connect")
 const User=require("./model/userModel")
 const app=express();
-require('dotenv').config();
+const dotenv=require('dotenv');
 const userRoute=require("./routes/userRoute")
 const cookieParser=require("cookie-parser")
 const cors=require("cors")
-const {checkAuthenticationCookie}=require("./middleWare/auth")
+dotenv.config({
+  path:'./.env'
+})
+const {checkAuthenticationCookie}=require("./middleWare/auth");
+const path = require("path");
 // if you are using different port for backend and frontend you need to add middleWare cors 
 app.use(cors({
   origin: 'http://localhost:5173', // Update with your client’s origin
