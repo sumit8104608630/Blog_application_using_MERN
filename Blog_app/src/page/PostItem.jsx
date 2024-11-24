@@ -16,7 +16,7 @@ function PostItem({id,title,description,authorId,category,thumbnail}) {
            
         </div>
         </Link>
-        <div className='mt-auto'>
+        <div className='mt-auto flex flex-col items-'>
             <PostAuthor/>
             <Link to={`/post/categories/${category}`}>
             <span className='text-xs'>{category}</span>

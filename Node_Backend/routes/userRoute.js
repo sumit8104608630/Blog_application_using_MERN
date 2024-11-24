@@ -4,7 +4,7 @@ const userRoute=express.Router();
 const {registerUser,login,uploadPhoto,logOut}=require("../controller/userController")
 const path=require("path");
 const multer =require ("multer");
-const upload =require("../middleWare/multer.middleware")
+const {upload} =require("../middleWare/multer.middleware")
 
 
 

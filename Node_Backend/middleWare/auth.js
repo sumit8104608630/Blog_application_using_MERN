@@ -10,6 +10,9 @@ function checkAuthenticationCookie(cookieName){
         const cookie=req.cookies[cookieName];
         if(cookie){
             const user=await getUser(cookie);
+            if(!user){
+                return res.status(401).json({message:"Invalid cookie"})
+            }
             const currentUserDetail=await  User.findById(user.id).select("-password").select("-salt");
             req.user=currentUserDetail
          

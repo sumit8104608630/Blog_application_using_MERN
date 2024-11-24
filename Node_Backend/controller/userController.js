@@ -28,6 +28,7 @@ async function login(req, res) {
         res.cookie('token', token, {
             httpOnly: true, // Prevent client-side JavaScript access
             // 1 day
+            secure:true,
         });
         res.status(200).json({ message: 'successful' });
     } catch (error) {

@@ -31,6 +31,7 @@ const uploadFile = async (localFilePath) => {
             resource_type: "auto",
         });
         console.log("Cloudinary upload successful. URL:", uploaded.url);
+        fs.unlinkSync(localFilePath); 
         return uploaded;
     } catch (error) {
         console.error("Cloudinary upload error:", error); 
@@ -41,7 +42,7 @@ const uploadFile = async (localFilePath) => {
             console.log("Local file deleted due to upload error.");
         }
     }
-};
+}; 
 
 // Test the function with a file path
 //uploadFile("../public/upload/1732351301170-WhatsApp, Image 2024-03-26 at 19.08.03_ab179175.jpg");

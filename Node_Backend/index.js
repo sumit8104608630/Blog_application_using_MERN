@@ -25,7 +25,7 @@ app.use(cookieParser());
 const port=process.env.PORT_NO||800;  
 // all requirement or you can say uses 
 app.use(express.json());
-//check authentication 
+//check authentication sending the user info to all the route for data manipulation
 app.use(checkAuthenticationCookie("token"));
 // all router which will use app.use("/user",userRoute);
 app.use("/user",userRoute);
@@ -34,7 +34,7 @@ app.use("/blog",blogRoute);
  
 
 
-app.get("/user/author",(req,res)=>{ 
+app.get("/user/author",(req,res)=>{  
   res.json({
     "user":req.user 
     })
@@ -42,7 +42,7 @@ app.get("/user/author",(req,res)=>{
  
 connect(process.env.MONGO_DB_URL).then(()=>{
     console.log("Connected to MongoDB")
-}).catch((err)=>{  
+}).catch((err)=>{   
     console.log("Error connecting to MongoDB",err)
 })
 
