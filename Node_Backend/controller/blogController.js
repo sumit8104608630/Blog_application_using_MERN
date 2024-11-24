@@ -38,9 +38,10 @@ const add_postFunction=async(req,res,next)=>{
         Content:req.body.content,
         author:req.user._id,
     }
-    console.log(create_blog)
+   // console.log(create_blog)
     // let's now put this data in database in mongodb
     const blog_data=await blog.create(create_blog)
+    console.log(blog_data)
     res.status(202).json({
         message:"Blog created successfully",
         blog_data

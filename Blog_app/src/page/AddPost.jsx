@@ -76,7 +76,11 @@ if(response_from_server.ok){
   set_bool(prev=>!prev)
 }
 if(add_post_success){
-  navigate(`/post/${response_from_server.json()}`);  
+  const blog_detail= await response_from_server.json()
+  const blog_data=blog_detail.blog_data
+  const blog_id=blog_data["_id"];
+  console.log(blog_id)
+  navigate(`/postDetail/${blog_id}`)
 }
 }
 catch(error){

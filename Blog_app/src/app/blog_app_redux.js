@@ -8,6 +8,10 @@ const initialState = {
   error: null,
 };
 
+
+
+
+
 export const authenticationSlice = createSlice({
   name: "authentication",
   initialState,
