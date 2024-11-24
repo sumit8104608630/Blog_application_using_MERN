@@ -29,16 +29,20 @@ const add_postFunction=async(req,res,next)=>{
     // it will create data collection in mongodb
     const create_blog={
         title,
-        blogIMage:blog_image_url.url,
+        blogImage:blog_image_url.url,
         type, 
         date, 
         Content:req.body.content,
         author:req.user._id,
     }
     console.log(create_blog)
+    // let's now put this data in database in mongodb
+    const blog_data=await blog.create(create_blog)
     res.status(202).json({
         message:"Blog created successfully",
+        blog_data
     })
+
  }
  catch(error){
     return res.status(404).json({message:error.message})
