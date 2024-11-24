@@ -26,6 +26,9 @@ const add_postFunction=async(req,res,next)=>{
     const local_path=path.join(__dirname,`../public/blog_images/${blogImageFile}`)
 
     const blog_image_url=await uploadFile(local_path);
+    if(!blog_image_url){
+        return res.status(400).json({message:"Failed to upload image"})
+    }
     // it will create data collection in mongodb
     const create_blog={
         title,

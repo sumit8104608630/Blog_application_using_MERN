@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import { useNavigate } from 'react-router-dom';
 
 function AddPost() {
+//setting navigate to navigate to blog which is currently added
+const navigate=useNavigate();
 
+  const [add_post_success,set_bool]=useState(false)
   //first creating a object to stor all the form data in one object
   const [postData ,setPostData]=useState({
     title:"",
@@ -66,9 +70,14 @@ const response_from_server=await fetch(`http://localhost:9000/blog/add_post`,{
   body: form_data,
   credentials: "include",
 })
-
 console.log(response_from_server)
-
+// if response is 200 then it means data has been sent successfully
+if(response_from_server.ok){
+  set_bool(prev=>!prev)
+}
+if(add_post_success){
+  navigate(`/post/${response_from_server.json()}`);  
+}
 }
 catch(error){
   console.error(error);
