@@ -1,4 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  fetchBlogs,
+  fetchBlog,
+  fetchCategories,
+  fetchUserBlogs,
+  fetchAuthors,
+} from "./actionFetch.js"
+
 
 
 //let's create redux for  blog handling for all pages
@@ -21,7 +29,7 @@ const blog_initialState={
 export const blog_manipulations_slice=createSlice({
     name:"blogManipulation",
     initialState:blog_initialState,
-    reducers:{}
+    reducers:{},
     extraReducers:(builder)=>{
         builder.addCase(fetchBlogs.pending,(state)=>{
             state.isLoading=true,

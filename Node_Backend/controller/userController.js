@@ -13,7 +13,7 @@ async function registerUser(req,res){
         res.status(202).json({message:"successful"})
         console.log(userExist)
     }
-    catch(err){
+    catch(err){ 
         res.status(400).json({message:err.message});
     }
 }
@@ -79,9 +79,24 @@ async function logOut(req,res){
    res.send("token");
 }
 
+// making API to fetch all users
+async function getAllUsers(req, res) {
+    try{
+        const allUser = await User.find().select("-password");
+            if(!allUser||allUser.length===0){
+            return res.status(400).json({ message: "No user found" });
+        }
+        res.status(200).json({ message: "All users fetched successfully", allUser });
+    }
+    catch(error){
+        res.status(500).json({message:error.message})
+    }
+}
+
 module.exports={
     registerUser,
     login,
     uploadPhoto,
-    logOut
+    logOut,
+    getAllUsers
 }

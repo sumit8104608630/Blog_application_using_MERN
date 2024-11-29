@@ -3,6 +3,7 @@ import {IoMdEyeOff}from "react-icons/io"
 import { IoEye } from "react-icons/io5";
 import { redirect, useNavigate } from 'react-router';
 function Rejister() {
+  const { isLogIn, userInfo, isLoading } = useSelector((state) => state.authenticate);
 
 const [toggle,setToggle]=useState(false);
 const [toggle2,setToggle2]=useState(false);

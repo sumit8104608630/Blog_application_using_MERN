@@ -34,12 +34,6 @@ const userSchema=mongoose.Schema({
         enum:["ADMIN","USER"],
         default:"USER"
     },
-    likeBlogs:[
-        {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"blog"
-        }
-    ]
     
 },{timestamps:true});
 

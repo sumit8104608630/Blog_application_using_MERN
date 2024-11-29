@@ -55,10 +55,23 @@ const add_postFunction=async(req,res,next)=>{
 
 
 }
+// making like functionality
+const postLike_blog=async(req,res)=>{
+    try{
+        const blog_id=req.params.id;
+        const user_id=req.params.id;
+        const blog=await blog.findById(blog_id);
+     
 
+    }
+    catch(error){
+        return res.status(404).json({message:error.message})
+    }
+}
 
 // exporting all function
 
 module.exports={
-    add_postFunction
+    add_postFunction,
+    postLike_blog
 }

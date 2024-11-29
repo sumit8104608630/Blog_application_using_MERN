@@ -27,13 +27,6 @@ const blogSchema=mongoose.Schema({
     ref:"User",
     required:true
   },
-  user_like:[
-    {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"user"
-    }
-]
-
 },{
     timestamps:true
 })

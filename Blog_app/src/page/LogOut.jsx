@@ -79,7 +79,7 @@ console.log(isLogIn)
     <div className='my-20 mt-28 flex flex-col  w-full'>
       {isLoading ? (
         <div className='absolute left-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2'>
-          <img className='w-10 md:w-1/2' src="https://i.gifer.com/ZNeT.gif" alt='Loading' />
+          <img className='w-10 ' src="https://i.gifer.com/ZNeT.gif" alt='Loading' />
         </div>
       ) : (
         <>
