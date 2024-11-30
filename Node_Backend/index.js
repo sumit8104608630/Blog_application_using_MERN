@@ -8,6 +8,7 @@ const userRoute=require("./routes/userRoute")
 const cookieParser=require("cookie-parser")
 const cors=require("cors")
 const blogRoute=require("./routes/blogRoute.js")
+const likeRoute=require("./routes/likeRoute");
 dotenv.config({
   path:'./.env'
 }) 
@@ -31,6 +32,9 @@ app.use(checkAuthenticationCookie("token"));
 app.use("/user",userRoute);
 // all rout which will be interacting with the blog schema model will be start from below url
 app.use("/blog",blogRoute);
+// all route which will be interacting with postLike and dislike will be start from below url
+app.use("/blog_like",likeRoute);
+
  
 
 
@@ -39,7 +43,7 @@ app.get("/user/author",(req,res)=>{
     "user":req.user 
     })
 })   
- 
+  
 connect(process.env.MONGO_DB_URL).then(()=>{        
     console.log("Connected to MongoDB") 
 }).catch((err)=>{   
