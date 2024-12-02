@@ -1,5 +1,6 @@
 const { model } = require("mongoose");
 const blog=require("../model/blogModel.js")
+const User = require("../model/userModel.js");
 const {uploadFile}=require("../utility/cloudinary.js")
 const path=require("path");
 
@@ -46,7 +47,6 @@ const add_postFunction=async(req,res,next)=>{
         message:"Blog created successfully",
         blog_data
     })
-
  }
  catch(error){
     return res.status(404).json({message:error.message})
@@ -55,23 +55,58 @@ const add_postFunction=async(req,res,next)=>{
 
 
 }
-// making like functionality
-const postLike_blog=async(req,res)=>{
-    try{
-        const blog_id=req.params.id;
-        const user_id=req.params.id;
-        const blog=await blog.findById(blog_id);
-     
+// getting all post for ui representation
 
+const get_all_blogs_by_like=async(req,res)=>{
+    try{
+        const  blogs=await blog.find().populate('author',"-password -email").sort({likeCount:-1});
+        if(!blogs || blogs.length===0){
+            return res.status(404).json({message:"No blogs found"})
+        }
+        res.status(200).json({blogs})
     }
     catch(error){
         return res.status(404).json({message:error.message})
     }
 }
 
+const get_all_blogs=async(req,res)=>{
+    try{
+       all_blogs=await blog.find()
+        .populate('author',"-password -email") // Populate user details in the blog
+      if(!all_blogs || all_blogs.length===0){
+        return res.status(404).json({message:"No blogs found"})
+      }
+      res.status(200).json({all_blogs})
+    }
+    catch(error){
+        return res.status(404).json({message:error.message})
+    }
+}
+
+
+//getting all blog of authenticated user
+const get_all_blogs_by_user=async(req,res)=>{
+    try{
+        const user_id =req.user._id;
+        const blogs=await blog.find({author:user_id}).populate("author","-password -email");
+        if(!blogs || blogs.length===0){
+            return res.status(404).json({message:"No blogs found"})
+        }
+        res.status(200).json({blogs})
+    }
+    catch(error){
+        return res.status(504).json({message:error.message})
+    }
+}
+
+
+
 // exporting all function
 
 module.exports={
     add_postFunction,
-    postLike_blog
+    get_all_blogs_by_like,
+    get_all_blogs,
+    get_all_blogs_by_user
 }

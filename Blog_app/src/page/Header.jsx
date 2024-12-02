@@ -18,7 +18,6 @@ function Header() {
       console.log("Cleanup function called");
     };
   }, [isLogIn])
-  console.log(isLogIn) 
   return (
     <>
     <div className='w-full z-1  md:flex md:justify-between  fixed top-0 bg-gray-500 shadow-lg shadow-gray-200/50 bg-white px-5 py-5 items-center'>

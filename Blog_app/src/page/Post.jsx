@@ -1,7 +1,31 @@
 import React from 'react'
 import PostItem from './PostItem'
+import { useState,useEffect } from 'react'
+import axios from 'axios'
+import {useSelector,useDispatch} from "react-redux"
+import {fetchBlogs} from "../app/actionFetch"
 
 function Post() {
+  const {all_blog,user_bog,categories,authors,isLoading,error }=useSelector(state=>state.blogs);
+  console.log(isLoading);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+  const b=  dispatch(fetchBlogs());
+  console.log(b)
+  },[dispatch])
+  console.log(all_blog)
+
+
+useEffect(()=>{
+  const all_blogs= fetch("http://localhost:9000/blog/all_blog",{
+    method:"GET",
+    credentials: 'include'
+  }).then(dat=>dat.json());
+  console.log(all_blogs);
+},[])
+
+
+
     const post=[
         {
           "id": 1,
@@ -47,9 +71,10 @@ function Post() {
       
       
   return (
+    <>{isLoading?
 <div className='flex flex-wrap justify-center gap-5n px-5 py-5'>
     {post?.map(({id,title,description,authorId,category,thumbnail})=><PostItem key={id} thumbnail={thumbnail} title={title} description={description} authorId={authorId} category={category} />)}
-</div>
+</div>:console.log(all_blog)}</>
 )
 }
 

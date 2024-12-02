@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchBlogs,
-  fetchBlog,
-  fetchCategories,
-  fetchUserBlogs,
-  fetchAuthors,
+  user_fetchBlogs,
+  updateBlogs,
+  deleteBlogs
 } from "./actionFetch.js"
 
 
@@ -12,16 +11,10 @@ import {
 //let's create redux for  blog handling for all pages
 
 const blog_initialState={
-    blogs:[],//all blogs
+    all_blog:[],//all blogs
     user_blog:[],//all blogs of specific user
-    authors:[],//all user or you can say all authors 
-    business:[],// all post related to business
-    agriculture:[],// all post related to agriculture
-    education:[],// all post related to education
-    art:[],// all post related to art
-    weather:[],// all post related to weather
-    nature:[],// all post related to nature
-    friend:[],// all post related to art
+    categories:[],
+    authors:[],
     isLoading:true,
     error:null
   };
@@ -29,15 +22,21 @@ const blog_initialState={
 export const blog_manipulations_slice=createSlice({
     name:"blogManipulation",
     initialState:blog_initialState,
-    reducers:{},
+    reducers:{
+      addBlog: (state, action) => {
+        state.blogs.push(action.payload); // Adds a new blog to the blogs array
+      },
+      
+    },
     extraReducers:(builder)=>{
-        builder.addCase(fetchBlogs.pending,(state)=>{
+        builder
+        .addCase(fetchBlogs.pending,(state)=>{
             state.isLoading=true,
             state.error=null
         })
-        .addCase(fetchBlog.fulfilled,(state,action)=>{
+        .addCase(fetchBlogs.fulfilled,(state,action)=>{
             state.isLoading=false
-            state.blogs=action.payload
+            state.all_blog= action.payload.all_blogs;
         })
         .addCase(fetchBlogs.rejected, (state, action) => {
             state.isLoading = false; // set loading to false if there's an error
@@ -46,51 +45,48 @@ export const blog_manipulations_slice=createSlice({
 
           //fetch for particular user
           builder
-          .addCase(fetchUserBlogs.pending, (state) => {
+          .addCase(user_fetchBlogs.pending, (state) => {
             state.isLoading = true;
             state.error = null;
           })
-          .addCase(fetchUserBlogs.fulfilled, (state, action) => {
+          .addCase(user_fetchBlogs.fulfilled, (state, action) => {
             state.isLoading = false;
             state.user_blog = action.payload;
           })
-          .addCase(fetchUserBlogs.rejected, (state, action) => {
+          .addCase(user_fetchBlogs.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
           });
-
-        // fetch for particular categories
+        // for updating
         builder
-        .addCase(fetchCategories.pending, (state) => {
+        .addCase(updateBlogs.pending, (state) => {
           state.isLoading = true;
           state.error = null;
         })
-        .addCase(fetchCategories.fulfilled, (state, action) => {
-          state.isLoading = false;
-          state.business = action.payload.business;
-          state.agriculture = action.payload.agriculture;
-          state.education = action.payload.education;
-          state.art = action.payload.art;
-          state.weather = action.payload.weather;
-          state.nature = action.payload.nature;
-          state.friend = action.payload.friend;
+        .addCase(updateBlogs.fulfilled, (state, action) => {
+          state.isLoading=false;
+          const index=state.blogs.findIndex((blog)=>blog._id===action.payload._id);
+          if(index!=-1){
+            state.blogs[index]=action.payload;
+          } 
         })
-        .addCase(fetchCategories.rejected, (state, action) => {
+        .addCase(updateBlogs.rejected, (state, action) => {
           state.isLoading = false;
           state.error = action.payload;
         });
-         
-        // fetch for all author user
+        
+        // for deleting 
         builder
-        .addCase(fetchAuthors.pending, (state) => {
+        .addCase(deleteBlogs.pending, (state) => {
           state.isLoading = true;
           state.error = null;
         })
-        .addCase(fetchAuthors.fulfilled, (state, action) => {
-          state.isLoading = false;
-          state.authors = action.payload;
+        .addCase(deleteBlogs.fulfilled, (state, action) => {
+          state.isLoading=false;
+          state.blogs=state.blogs.filter((blog)=>blog._id!==action.payload);
+
         })
-        .addCase(fetchAuthors.rejected, (state, action) => {
+        .addCase(deleteBlogs.rejected, (state, action) => {
           state.isLoading = false;
           state.error = action.payload;
         });

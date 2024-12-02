@@ -3,41 +3,6 @@ const like=require("../model/likeModel.js");
 const blog=require("../model/blogModel.js");
 
 
-// writing a function for getting all like for specific user by user id
-
-const getAllUserLike=async (req,res)=>{
-    try{
-        const user_id=req.user._id;
-        if(!user_id){
-            return res.status(400).json({message:"User not found"})
-        }
-        const like=await like.find({userId:user_id});
-        res.status(200).json({like:like});
-    }
-    catch(error){
-        res.status(500).json({message:error.message})
-    }
-}
-//creating like functionality whenever user like it will run this function 
-const createLike=async (req,res)=>{
-    try{
-        const {user_id,post_id}=req.body;
-        if(!user_id||!post_id){
-            return res.status(400).json({message:"Please fill all the fields"})
-        }
-        // creating like or you can say adding to database 
-        const like=await like.create({userId:user_id,postId:post_id});
-        // also updating blog model like array 
-
-
-        res.status(201).json({message:"Like created successfully"});
-
-
-    }
-    catch(error){
-        res.status(500).json({message:error.message})
-    }
-}
 
 // creating functionality with post id 
 const getLikeByPostId=async (req,res)=>{
@@ -47,27 +12,27 @@ const getLikeByPostId=async (req,res)=>{
         if(!user_id){
             return res.status(400).json({message:"User not found"})
         }
+           
+        if(!post_id){
+            return res.status(400).json({message:"Post not found"})
+        }
+
+        const blog_present=await blog.findById(post_id);
+        if(!blog_present){
+            return res.status(404).json({message:"Blog not found"});
+        }
+
         const likeExist=await like.findOne({userId:user_id,postId:post_id});
         if(likeExist){
             await like.deleteOne({userId:user_id,postId:post_id});
             await blog.findByIdAndUpdate(post_id,{$inc:{likeCount:-1}});
-
+           return res.status(200).json({message:"user unlike successfully"});
         }
         else{
-            const like=await like.create({userId:user_id,postId:post_id});
+            await like.create({userId:user_id,postId:post_id});
+            await blog.findByIdAndUpdate(post_id,{$inc:{likeCount:+1}});
+            return res.status(200).json({message:"user liked successfully"})
         }
-        res.status(200).json({message:"Like created successfully"})
-    }
-    catch(error){
-        res.status(500).json({message:error.message})
-    }
-}
-
-const getAllLikeOfSpecificPost=async(req,res)=>{
-    try{
-        const {post_id}=req.body;
-        const like=await like.find({postId:post_id});
-        res.status(200).json({like:like});
     }
     catch(error){
         res.status(500).json({message:error.message})
@@ -76,6 +41,5 @@ const getAllLikeOfSpecificPost=async(req,res)=>{
 
 
 module.exports={
-    getAllUserLike,
-    createLike
+    getLikeByPostId
 }
