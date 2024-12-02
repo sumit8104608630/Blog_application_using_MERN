@@ -62,7 +62,6 @@ console.log(isLogIn)
 //    dispatch(logout())
 
     try {
-
       await axios.post('http://localhost:9000/user/upload', data, {
         headers: {
           "Content-Type": 'multipart/form-data'

@@ -23,8 +23,8 @@ app.use(cors({
 app.use(cookieParser()); 
      
 // port of server  
-const port=process.env.PORT_NO||800;  
-// all requirement or you can say uses 
+const port=process.env.PORT_NO||800;   
+// all requirement or you can say uses  
 app.use(express.json());
 //check authentication sending the user info to all the route for data manipulation
 app.use(checkAuthenticationCookie("token"));

@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector,useDispatch } from 'react-redux';
+import {fetchBlogs} from "../app/actionFetch"
+
 
 function AddPost() {
 //setting navigate to navigate to blog which is currently added
 const navigate=useNavigate();
-
+// creating a boolean for addition of blog
   const [add_post_success,set_bool]=useState(false)
   //first creating a object to stor all the form data in one object
   const [postData ,setPostData]=useState({
@@ -17,7 +20,7 @@ const navigate=useNavigate();
   });
 
 
-
+const dispatch=useDispatch();
 
 
   // handling all information
@@ -49,8 +52,6 @@ const handleEditorChange = (content) => {
 const handelSubmit=async (e)=>{ 
 try{
   e.preventDefault();
-
-
 const form_data=new FormData();
 form_data.append('title',postData.title);
 form_data.append('image',postData.image);
@@ -81,6 +82,7 @@ if(add_post_success){
   const blog_id=blog_data["_id"];
   console.log(blog_id)
   navigate(`/postDetail/${blog_id}`)
+  dispatch(fetchBlogs())
 }
 }
 catch(error){

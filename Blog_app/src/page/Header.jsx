@@ -11,6 +11,7 @@ function Header() {
    const [menu,setMenu]=useState(false);
    const dispatch=useDispatch()
    const {isLogIn, userInfo, isLoading }=useSelector((state)=>state.authenticate);
+   
    useEffect( ()=>{
     dispatch(fetchUser())
     return () => {

@@ -15,6 +15,7 @@ const blog_initialState={
     user_blog:[],//all blogs of specific user
     categories:[],
     authors:[],
+    add_blog:false,
     isLoading:true,
     error:null
   };

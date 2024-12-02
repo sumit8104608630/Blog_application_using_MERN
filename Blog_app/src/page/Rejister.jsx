@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {IoMdEyeOff}from "react-icons/io"
 import { IoEye } from "react-icons/io5";
+import { useSelector } from 'react-redux';
 import { redirect, useNavigate } from 'react-router';
 function Rejister() {
   const { isLogIn, userInfo, isLoading } = useSelector((state) => state.authenticate);

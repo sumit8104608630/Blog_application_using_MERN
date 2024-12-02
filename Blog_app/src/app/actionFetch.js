@@ -85,7 +85,6 @@ export const user_fetchBlogs=createAsyncThunk(
       });
 
       const response = await all_blogs.json();
-      console.log(response)
       if (response) {
         return response; // Ensure the response is the expected structure (check console log of the response)
       } else {
@@ -145,6 +144,30 @@ export const deleteBlogs = createAsyncThunk(
       }
     } catch (error) {
       return rejectWithValue(error.message); // Handle network errors
+    }
+  }
+);
+
+
+export const fetch_like=createAsyncThunk(
+  'like/all_like',  // Action type name
+  async(_,{rejectWithValue})=>{
+    try{
+
+      const all_blogs=await fetch("http://localhost:9000/blog_like/all_like",{
+        method:"GET",
+        credentials: 'include'
+      })
+
+      const response=await all_blogs.json();
+      if(response){
+        return response;
+      }else{
+        return rejectWithValue("no like");
+      }
+    }
+    catch(error){
+      return rejectWithValue(error.message);
     }
   }
 );

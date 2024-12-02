@@ -40,3 +40,5 @@ Currently, two official plugins are available:
             </div>
         
         
+
+_id,title,blogImage,type,createdAt,Content,author,likeCount,        
