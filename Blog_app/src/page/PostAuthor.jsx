@@ -23,8 +23,8 @@ function PostAuthor({author,likeCount,post_id,all_like}) {
 
 useEffect(()=>{
 if(userInfo){
-const  boolean_value=all_like?.some((like)=> like?.userId===userInfo?._id&&like?.postId===post_id);
-  setToggle(boolean_value)
+  setToggle(all_like?.some((like)=> like?.userId===userInfo?._id&&like?.postId===post_id));
+
 }
 },[all_like,userInfo,post_id])
 

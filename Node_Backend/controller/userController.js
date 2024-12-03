@@ -11,7 +11,6 @@ async function registerUser(req,res){
             userName,email,password
         });
         res.status(202).json({message:"successful"})
-        console.log(userExist)
     }
     catch(err){ 
         res.status(400).json({message:err.message});
@@ -49,9 +48,15 @@ const email=req.user.email;
 try{
     console.log(req.file)
     if (!req.file) {
+          await User.updateOne({
+            email:email
+         },   
+        {$set:{
+                userName:userName 
+              }
+        })
         return res.status(400).json({ message: "No file uploaded" });
     }
-   // console.log(`../public/upload/${req.file.filename}`)
 
    
 const local_path=path.join(__dirname,`../public/upload/${req.file.filename}`)

@@ -13,7 +13,6 @@ dotenv.config({
   path:'./.env'
 }) 
 const {checkAuthenticationCookie}=require("./middleWare/auth");
-const path = require("path");
 // if you are using different port for backend and frontend you need to add middleWare cors 
 app.use(cors({
   origin: 'http://localhost:5173', // Update with your client’s origin
