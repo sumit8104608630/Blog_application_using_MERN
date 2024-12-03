@@ -18,35 +18,36 @@ function PostAuthor({author,likeCount,post_id,all_like}) {
   const [toggle,setToggle]=useState(false);
   const{_id,userName,profileImage}=author;
   const dispatch=useDispatch()
-  const all_user_id=all_like
-  const all_blog_id=all_user_id?.map(i=>i.postId);
-  const all_id=all_user_id?.map(i=>i.userId);
+  const all_likes=all_like
+
 
 useEffect(()=>{
 if(userInfo){
-
-if(all_id.includes(userInfo?._id) && all_blog_id?.includes(post_id)){
-  setToggle(true)
-}
-else{
-  setToggle(false)
-}
+const  boolean_value=all_like?.some((like)=> like?.userId===userInfo?._id&&like?.postId===post_id);
+  setToggle(boolean_value)
 }
 },[all_like,userInfo,post_id])
 
 
   const handel_like_function=async()=>{
-    setToggle((prev)=>!prev)
-    console.log("like button clicked")
-    console.log(post_id)
-    console.log(_id)
-    const response=await fetch(`http://localhost:9000/blog_like/like/${post_id}`,{
-      method: "POST",
-      body: "",
-      credentials: "include",
-    })
-    dispatch(fetch_like())
-    dispatch(fetchBlogs())
+
+ try {
+  
+     const response=await fetch(`http://localhost:9000/blog_like/like/${post_id}`,{
+       method: "POST",
+       body: "",
+       headers: {
+        "Content-Type": "application/json",
+      },
+       credentials: "include",
+     })
+     if(response.ok){
+     dispatch(fetch_like())
+     dispatch(fetchBlogs())
+     }
+ } catch (error) {
+  console.log(error)
+ }
   }
   
 
