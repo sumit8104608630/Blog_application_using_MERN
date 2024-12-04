@@ -13,7 +13,7 @@ const storage=multer.diskStorage({
         cb(null,filename)
     }
  
-})
+}) 
 
 
 //middleware for file uploading in different folder blogImage
