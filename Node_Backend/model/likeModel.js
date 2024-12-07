@@ -5,11 +5,13 @@ const mongoose=require("mongoose")
 const likeSchema=new mongoose.Schema({
     userId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"user"
+        ref:"user",
+        index:true
     },
     postId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"blog"
+        ref:"blog",
+        index:true
     }
 },{
     timestamps:true,

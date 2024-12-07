@@ -5,21 +5,29 @@ const path=require("path");
 
 
 async function registerUser(req,res){
-    const {userName,email,password}=req.body;
+
     try{
-        const userExist=await User.create({
+        const {userName,email,password}=req.body;
+        if([userName,email,password].some(property=>property?.trim()==="")){
+            return res.status(400).json({message:"Please fill in all fields"})
+        }
+       const userExist=await User.findOne({email});
+       if(userExist){
+        return res.status(400).json({message:"Email already exist"})
+       }
+       console.log(userName,email,password)
+        const userCreate=await User.create({ 
             userName,email,password
         });
         res.status(202).json({message:"successful"})
     }
-    catch(err){ 
-        res.status(400).json({message:err.message});
+    catch(err){  
+        res.status(400).json({message:err.message}); 
     }
 }
 
 async function login(req, res) {
     const { email, password } = req.body;
-    console.log(req.user)
     try {
         const token = await User.matchPasswordGenerateToken(email, password);
         console.log(token);

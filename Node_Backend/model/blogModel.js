@@ -12,7 +12,8 @@ const blogSchema=mongoose.Schema({
   },
   type:{
     type:String,
-    required:true
+    required:true,
+    index:true
   },
   date:{
     type:String,
@@ -25,11 +26,13 @@ const blogSchema=mongoose.Schema({
   author:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"user",
-    required:true
+    required:true,
+    index:true,
   },
   likeCount:{
     type:Number,
-    default:0
+    default:0,
+    index:true,
   }
   
 },{

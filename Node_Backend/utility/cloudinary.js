@@ -10,7 +10,6 @@ cloudinary.config({
         api_secret: 'Fw_5j7w56Q0lhJ7hRClTFoDg-SA'  // Click 'View API Keys' above to copy your API secret
 });
 
-require('dotenv').config();
 // console.log('Cloud Name:', process.env.CLOUD_NAME);
 // console.log('API Key:', process.env.API_KEY);
 // console.log('API Secret:', process.env.API_SECRET);
